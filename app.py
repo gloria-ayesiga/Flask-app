@@ -1,11 +1,15 @@
 import os
 from flask import Flask, request, render_template_string
 from pymongo import MongoClient
+import certifi
 
 app = Flask(__name__)
 
 # MongoDB setup
-client = MongoClient("mongodb+srv://gloayesiga:ODyhsWYJLTlTlCG1@finalproject.ivwhchh.mongodb.net/?retryWrites=true&w=majority&appName=Finalproject")
+client = MongoClient(
+    "mongodb+srv://gloayesiga:ODyhsWYJLTlTlCG1@finalproject.ivwhchh.mongodb.net/?retryWrites=true&w=majority",
+    tlsCAFile=certifi.where()
+)
 db = client["user_data_db"]
 collection = db["user_submissions"]
 
