@@ -6,12 +6,17 @@ import certifi
 app = Flask(__name__)
 
 # MongoDB setup
-client = MongoClient(
-    "mongodb+srv://gloayesiga:ODyhsWYJLTlTlCG1@finalproject.ivwhchh.mongodb.net/?retryWrites=true&w=majority",
-    tlsCAFile=certifi.where()
-)
-db = client["user_data_db"]
-collection = db["user_submissions"]
+try:
+    client = MongoClient(
+        "mongodb+srv://gloayesiga:ODyhsWYJLTlTlCG1@finalproject.ivwhchh.mongodb.net/?retryWrites=true&w=majority",
+        tlsCAFile=certifi.where()
+    )
+    db = client["user_data_db"]
+    collection = db["user_submissions"]
+    print("✅ MongoDB connection successful")
+except Exception as e:
+    print(f"❌ MongoDB connection failed: {e}")
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
